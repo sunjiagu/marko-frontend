@@ -1,8 +1,7 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native'; // Ensure StyleSheet is imported
+import { StyleSheet, View, AppRegistry } from 'react-native'; // Ensure StyleSheet and AppRegistry are imported
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { AppRegistry } from 'react-native'; // Ensure AppRegistry is imported
 import HomeScreen from './src/screens/HomeScreen';
 import CreateRatingScreen from './src/screens/CreateRatingScreen';
 import OnboardingScreen from './src/screens/OnboardingScreen';

@@ -3,7 +3,7 @@ import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import RatingCard from '../components/cards/RatingCard';
 import Button from '../components/ui/Button';
-//import { fetchRatings } from '../services/ratingService';
+import { fetchRatings } from '../services/ratingService';
 
 const HomeScreen = () => {
   const navigation = useNavigation();

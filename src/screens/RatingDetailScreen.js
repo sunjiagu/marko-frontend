@@ -1,3 +1,9 @@
+import { StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import Button from '../components/ui/Button';
+
 const RatingDetailScreen = ({ route }) => {
     const navigation = useNavigation();
     const { ratingId } = route.params;

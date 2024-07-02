@@ -8,6 +8,8 @@ import OnboardingScreen from './src/screens/OnboardingScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
 import RatingDetailScreen from './src/screens/RatingDetailScreen';
 import EditProfileScreen from './src/screens/EditProfileScreen';
+import { ClerkProvider } from '@clerk/clerk-react';
+import { CLERK_PUBLISHABLE_KEY } from '@env';
 
 const Stack = createStackNavigator();
 

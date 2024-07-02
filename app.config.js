@@ -1,6 +1,6 @@
 export default {
-    name: "marko-react-native",
-    slug: "marko-react-native",
+    name: "marko",
+    slug: "marko",
     version: "1.0.0",
     orientation: "portrait",
     icon: "./assets/icon.png",
@@ -15,14 +15,14 @@ export default {
     ],
     ios: {
       supportsTablet: true,
-      bundleIdentifier: "com.yourcompany.markoreactnative"
+      bundleIdentifier: "com.marko.markoreactnative"
     },
     android: {
       adaptiveIcon: {
         foregroundImage: "./assets/adaptive-icon.png",
         backgroundColor: "#ffffff"
       },
-      package: "com.yourcompany.markoreactnative"
+      package: "com.marko.markoreactnative"
     },
     web: {
       favicon: "./assets/favicon.png"

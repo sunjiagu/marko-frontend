@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { Ionicons } from '@expo/vector-icons'; // Make sure to install @expo/vector-icons
+import { Ionicons } from '@expo/vector-icons';
 
 const sidebarLinks = [
   {
@@ -49,6 +49,7 @@ const BottomBar = () => {
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   bottombar: {

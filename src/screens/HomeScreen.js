@@ -1,26 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import RatingCard from '../components/cards/RatingCard';
-import Button from '../components/ui/Button';
-import { fetchRatings } from '../services/ratingService';
+import BottomBar from '../components/shared/Bottombar';
+
+const mockRatings = [
+  {
+    id: '1',
+    Rating_subject: 'Michael Jordan',
+    Rating_stars: 4,
+    Rating_description: 'The GOAT!',
+    Rating_image: 'example',
+    ratingScore: 4.2,
+    numberOfRatings: 15,
+  },
+  {
+    id: '2',
+    Rating_subject: 'Kobe',
+    Rating_stars: 5,
+    Rating_description: 'The worst',
+    Rating_image: 'example',
+    ratingScore: 4.8,
+    numberOfRatings: 32,
+  },
+  // Add more mock ratings as needed
+];
 
 const HomeScreen = () => {
   const navigation = useNavigation();
-  const [ratings, setRatings] = useState([]);
-
-  useEffect(() => {
-    loadRatings();
-  }, []);
-
-  const loadRatings = async () => {
-    try {
-      const fetchedRatings = await fetchRatings();
-      setRatings(fetchedRatings);
-    } catch (error) {
-      console.error('Error fetching ratings:', error);
-    }
-  };
+  const [ratings, setRatings] = useState(mockRatings);
 
   return (
     <View style={styles.container}>
@@ -31,31 +39,24 @@ const HomeScreen = () => {
       <FlatList
         data={ratings}
         renderItem={({ item }) => (
-          <RatingCard
-            id={item.id}
-            Rating_subject={item.Rating_subject}
-            Rating_stars={item.Rating_stars}
-            Rating_description={item.Rating_description}
-            Rating_image={item.Rating_image}
-            ratingScore={item.ratingScore}
-            numberOfRatings={item.numberOfRatings}
-            currentUserId="current-user-id" // Replace with actual current user ID
-          />
+          <View style={styles.cardContainer}>
+            <RatingCard
+              id={item.id}
+              Rating_subject={item.Rating_subject}
+              Rating_stars={item.Rating_stars}
+              Rating_description={item.Rating_description}
+              Rating_image={item.Rating_image}
+              ratingScore={item.ratingScore}
+              numberOfRatings={item.numberOfRatings}
+              currentUserId="current-user-id"
+            />
+          </View>
         )}
         keyExtractor={(item) => item.id}
+        contentContainerStyle={styles.listContent}
       />
       
-      <View style={styles.footer}>
-        <Button onPress={() => navigation.navigate('Home')}>
-          <Text>Home</Text>
-        </Button>
-        <Button onPress={() => navigation.navigate('CreateRating')}>
-          <Text>+</Text>
-        </Button>
-        <Button onPress={() => navigation.navigate('Profile')}>
-          <Text>Profile</Text>
-        </Button>
-      </View>
+      <BottomBar />
     </View>
   );
 };
@@ -63,24 +64,28 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#f0f0f0', // Light gray background for the container
   },
   header: {
-    backgroundColor: '#FF6347',
-    padding: 16,
-    alignItems: 'center',
+    backgroundColor: '#FE451A',
+    padding: 32,
+    alignItems: 'flex-start',
   },
   headerTitle: {
     color: 'white',
     fontSize: 24,
     fontWeight: 'bold',
+    fontStyle: 'Luckiest Guy', // Ensure the font is properly loaded
   },
-  footer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+  listContent: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+  },
+  cardContainer: {
+    backgroundColor: 'white', // White background for cards
+    marginVertical: 4, // Small gap between cards
     padding: 16,
-    borderTopWidth: 1,
-    borderTopColor: '#e0e0e0',
+    borderRadius: 8,
   },
 });
 

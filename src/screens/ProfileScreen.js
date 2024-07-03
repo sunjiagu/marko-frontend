@@ -1,42 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Button from '../components/ui/Button';
 import RatingCard from '../components/cards/RatingCard';
-//import { fetchUserProfile, fetchUserRatings } from '../services/userService';
 
-const ProfileScreen = ({ route }) => {
+const mockUserProfile = {
+  id: 'user1',
+  username: 'superman',
+  nickname: 'Clark',
+  bio: 'Coffee lover and food enthusiast',
+  profile_pic: 'https://example.com/profile-pic.jpg',
+};
+
+const mockUserRatings = [
+  {
+    id: '1',
+    Rating_subject: 'Lebron',
+    Rating_stars: 5,
+    Rating_description: 'I wish I am Bronny!',
+    Rating_image: 'https://example.com/cafe.jpg',
+    ratingScore: 4.9,
+    numberOfRatings: 20,
+  },
+  // Add more mock ratings as needed
+];
+
+const ProfileScreen = () => {
   const navigation = useNavigation();
-  const { userId } = route.params;
-  const [userProfile, setUserProfile] = useState(null);
-  const [userRatings, setUserRatings] = useState([]);
-
-  useEffect(() => {
-    loadUserProfile();
-    loadUserRatings();
-  }, [userId]);
-
-  const loadUserProfile = async () => {
-    try {
-      const profile = await fetchUserProfile(userId);
-      setUserProfile(profile);
-    } catch (error) {
-      console.error('Error fetching user profile:', error);
-    }
-  };
-
-  const loadUserRatings = async () => {
-    try {
-      const ratings = await fetchUserRatings(userId);
-      setUserRatings(ratings);
-    } catch (error) {
-      console.error('Error fetching user ratings:', error);
-    }
-  };
-
-  if (!userProfile) {
-    return <Text>Loading...</Text>;
-  }
 
   return (
     <ScrollView style={styles.container}>
@@ -44,20 +34,20 @@ const ProfileScreen = ({ route }) => {
         <Button onPress={() => navigation.goBack()}>
           <Text>←</Text>
         </Button>
-        <Text style={styles.headerTitle}>{userProfile.username}</Text>
-        <Button onPress={() => navigation.navigate('EditProfile', { userId })}>
+        <Text style={styles.headerTitle}>{mockUserProfile.username}</Text>
+        <Button onPress={() => navigation.navigate('EditProfile', { userId: mockUserProfile.id })}>
           <Text>Edit</Text>
         </Button>
       </View>
       
       <View style={styles.profileInfo}>
-        <Image source={{ uri: userProfile.profile_pic }} style={styles.profilePic} />
-        <Text style={styles.nickname}>{userProfile.nickname}</Text>
-        <Text style={styles.bio}>{userProfile.bio}</Text>
+        <Image source={{ uri: mockUserProfile.profile_pic }} style={styles.profilePic} />
+        <Text style={styles.nickname}>{mockUserProfile.nickname}</Text>
+        <Text style={styles.bio}>{mockUserProfile.bio}</Text>
       </View>
       
       <View style={styles.ratingsList}>
-        {userRatings.map((rating) => (
+        {mockUserRatings.map((rating) => (
           <RatingCard
             key={rating.id}
             id={rating.id}
@@ -67,7 +57,7 @@ const ProfileScreen = ({ route }) => {
             Rating_image={rating.Rating_image}
             ratingScore={rating.ratingScore}
             numberOfRatings={rating.numberOfRatings}
-            currentUserId={userId}
+            currentUserId={mockUserProfile.id}
           />
         ))}
       </View>

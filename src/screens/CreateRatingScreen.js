@@ -3,7 +3,6 @@ import { View, Text, Image, TextInput, StyleSheet, ScrollView } from 'react-nati
 import { useNavigation } from '@react-navigation/native';
 import Button from '../components/ui/Button';
 import StarRating from '../components/ui/StarRating';
-//import { createRating } from '../services/ratingService';
 
 const CreateRatingScreen = () => {
   const navigation = useNavigation();
@@ -12,19 +11,10 @@ const CreateRatingScreen = () => {
   const [rating, setRating] = useState(0);
   const [image, setImage] = useState(null);
 
-  const handleSubmit = async () => {
-    try {
-      await createRating({
-        Rating_subject: title,
-        Rating_stars: rating,
-        Rating_description: description,
-        Rating_image: image,
-        // Add other necessary fields
-      });
-      navigation.goBack();
-    } catch (error) {
-      console.error('Error creating rating:', error);
-    }
+  const handleSubmit = () => {
+    // In a real app, this would send data to the backend
+    // For now, we'll just navigate back
+    navigation.goBack();
   };
 
   return (
@@ -77,6 +67,7 @@ const CreateRatingScreen = () => {
     </ScrollView>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {

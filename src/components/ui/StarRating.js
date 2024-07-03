@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 
 const StarRating = ({ 
   count = 5, 
   rating = 0, 
-  size = 24, 
+  size = 28, 
   onRatingChange,
   isInteractive = false,
   style = {}
@@ -28,8 +29,10 @@ const StarRating = ({
         onPressIn={() => isInteractive && setHoverRating(starValue)}
         onPressOut={() => isInteractive && setHoverRating(0)}
       >
-        <Image
-          source={isSelected ? require('../../../assets/stars_filled.png') : require('../../../assets/stars_unfilled.png')}
+        <AntDesign
+          name="star"
+          size={size}
+          color={isSelected ? '#FE451A' : 'gray'}
           style={[styles.star, { width: size, height: size }]}
         />
       </TouchableOpacity>
@@ -49,7 +52,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   star: {
-    marginHorizontal: 2,
+    marginHorizontal: 0.5,
   },
 });
 

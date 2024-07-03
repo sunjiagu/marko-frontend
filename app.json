@@ -1,34 +1,47 @@
 {
-    "expo": {
-      "name": "marko",
-      "slug": "marko",
-      "version": "1.0.0",
-      "orientation": "portrait",
-      "icon": "./assets/icon.png",
-      "userInterfaceStyle": "light",
-      "splash": {
-        "image": "./assets/splash.png",
-        "resizeMode": "contain",
+  "expo": {
+    "name": "marko",
+    "slug": "marko",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.marko_app.marko",
+      "jsEngine": "hermes"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "assetBundlePatterns": [
-        "**/*"
-      ],
-      "ios": {
-        "supportsTablet": true,
-        "bundleIdentifier": "com.marko_app.marko",
-        "jsEngine":"hermes"
+      "package": "com.marko_app.marko"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "fonts": [
+      {
+        "asset": "./assets/fonts/LuckiestGuy-Regular.ttf",
+        "family": "Luckiest Guy"
       },
-      "android": {
-        "adaptiveIcon": {
-          "foregroundImage": "./assets/adaptive-icon.png",
-          "backgroundColor": "#ffffff"
-        },
-        "package": "com.marko_app.marko"
+      {
+        "asset": "./assets/fonts/PTSans-Regular.ttf",
+        "family": "PT Sans"
       },
-      "web": {
-        "favicon": "./assets/favicon.png"
+      {
+        "asset": "./assets/fonts/PTSans-Bold.ttf",
+        "family": "PT Sans Bold"
       }
-    }
+    ]
   }
-  
+}

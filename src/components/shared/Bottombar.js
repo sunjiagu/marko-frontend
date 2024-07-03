@@ -1,23 +1,24 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { Ionicons } from '@expo/vector-icons';
+import { AntDesign, Entypo, FontAwesome6 } from '@expo/vector-icons';
 
 const sidebarLinks = [
   {
-    iconName: "home-outline",
+    iconName: "home",
     route: "Home",
-    label: "Home",
+    useEntypo: true,
   },
   {
-    iconName: "add-circle-outline",
+    iconName: "pluscircle",
+    filledIconName: "pluscircle",
     route: "CreateRating",
-    label: "Create Rating",
+    useAntDesign: true,
   },
   {
-    iconName: "person-outline",
+    iconName: "user",
     route: "Profile",
-    label: "Profile",
+    useFontAwesome6: true,
   },
 ];
 
@@ -31,18 +32,34 @@ const BottomBar = () => {
         const isActive = route.name === link.route;
         return (
           <TouchableOpacity
-            key={link.label}
-            style={styles.bottombarLink}
+            key={link.route}
+            style={[
+              styles.bottombarLink,
+              link.useAntDesign && styles.middleIconContainer,
+            ]}
             onPress={() => navigation.navigate(link.route)}
           >
-            <Ionicons
-              name={isActive ? link.iconName.replace('-outline', '') : link.iconName}
-              size={24}
-              color={isActive ? '#FF6347' : 'black'}
-            />
-            <Text style={[styles.iconLabel, isActive && styles.activeLabel]}>
-              {link.label}
-            </Text>
+            {link.useEntypo ? (
+              <Entypo
+                name={link.iconName}
+                size={36}
+                color={isActive ? '#FE451A' : 'black'}
+              />
+            ) : link.useAntDesign ? (
+              <AntDesign
+                name={isActive ? link.filledIconName : link.iconName}
+                size={48}
+                color={isActive ? '#FE451A' : '#FE451A'}
+                style={styles.middleIcon}
+              />
+            ) : link.useFontAwesome6 ? (
+              <FontAwesome6
+                name={link.iconName}
+                size={30}
+                color={isActive ? '#FE451A' : 'black'}
+                solid
+              />
+            ) : null}
           </TouchableOpacity>
         );
       })}
@@ -50,26 +67,23 @@ const BottomBar = () => {
   );
 };
 
-
 const styles = StyleSheet.create({
   bottombar: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: 'white',
-    paddingVertical: 10,
+    paddingTop: 14,
+    paddingBottom:32,
     borderTopWidth: 1,
     borderTopColor: '#e0e0e0',
+    paddingHorizontal: 50,
   },
   bottombarLink: {
     alignItems: 'center',
   },
-  iconLabel: {
-    fontSize: 12,
-    marginTop: 2,
-  },
-  activeLabel: {
-    color: '#FF6347',
+  middleIconContainer: {
+    marginTop:0 , 
   },
 });
 

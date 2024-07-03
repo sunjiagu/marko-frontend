@@ -59,7 +59,7 @@ const RatingDetailCard = ({
           <StarRating
             rating={userRating}
             onRatingChange={handleRating}
-            size={25}
+            size={22}
             style={styles.stars}
           />
         </View>

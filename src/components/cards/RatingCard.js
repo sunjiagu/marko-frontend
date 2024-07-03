@@ -1,63 +1,107 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import StarRating from "../ui/StarRating";
 
-const RatingCard = ({ Rating_subject, Rating_stars, Rating_description, Rating_image, ratingScore, numberOfRatings }) => {
+const RatingCard = ({
+  id,
+  Rating_subject,
+  Rating_stars,
+  Rating_description,
+  Rating_image,
+  ratingScore,
+  numberOfRatings,
+  currentUserId,
+}) => {
+  const [avgRating, setAvgRating] = useState(ratingScore);
+  const [totalRatings, setTotalRatings] = useState(numberOfRatings);
+  const [userRating, setUserRating] = useState(0);
+
+  useEffect(() => {
+    setUserRating(Rating_stars);
+  }, [Rating_stars]);
+
+  const handleRating = (newRating) => {
+    setUserRating(newRating);
+    // Here you would typically update the rating on the server
+    // For now, we'll just update the local state
+    const newTotalRatings = totalRatings + 1;
+    const newAvgRating = ((avgRating * totalRatings) + newRating) / newTotalRatings;
+    setAvgRating(newAvgRating);
+    setTotalRatings(newTotalRatings);
+  };
+
   return (
-    <View style={styles.card}>
-      <Image source={{ uri: Rating_image }} style={styles.image} />
-      <View style={styles.details}>
-        <View style={styles.header}>
-          <Text style={styles.subject}>{Rating_subject}</Text>
-          <Text style={styles.stars}>{'★'.repeat(Rating_stars)}{'☆'.repeat(5 - Rating_stars)}</Text>
+    <View style={styles.ratingItem}>
+      <View style={styles.contentContainer}>
+        <Image
+          source={Rating_image}
+          style={styles.image}
+        />
+        <View style={styles.textContainer}>
+          <Text style={styles.title}>{Rating_subject}</Text>
+          <Text style={styles.description}>{Rating_description}</Text>
         </View>
-        <Text style={styles.description}>{Rating_description}</Text>
-        <Text style={styles.score}>{ratingScore}</Text>
-        <Text style={styles.ratings}>({numberOfRatings} ratings)</Text>
+        <View style={styles.ratingContainer}>
+          <StarRating
+            rating={userRating}
+            onRatingChange={handleRating}
+            size={23}
+            style={styles.stars}
+          />
+          <Text style={styles.score}>{avgRating.toFixed(1)}</Text>
+          <Text style={styles.ratingCount}>{totalRatings} {totalRatings === 1 ? 'rating' : 'ratings'}</Text>
+        </View>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  card: {
-    flexDirection: 'row',
+  ratingItem: {
     backgroundColor: 'white',
-    padding: 16,
+    paddingVertical: 10,
+    paddingHorizontal: 6,
     borderRadius: 8,
   },
-  image: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    marginRight: 16,
-  },
-  details: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  header: {
+  contentContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    alignItems: 'start',
   },
-  subject: {
-    fontSize: 16,
-    fontWeight: 'bold',
+  image: {
+    width: 80,
+    height: 80,
+    borderRadius: 8,
+    marginRight:10,
+    marginLeft:6
   },
-  stars: {
+  textContainer: {
+    flex: 1,
+  },
+  title: {
     fontSize: 16,
+    fontFamily: 'PT Sans Bold',
+    marginTop: 2,
   },
   description: {
-    fontSize: 14,
+    fontSize: 12,
+    fontFamily: 'PT Sans',
     color: '#666',
   },
-  score: {
-    fontSize: 16,
-    color: '#FF891B', // Score color
+  ratingContainer: {
+    alignItems: 'flex-end',
   },
-  ratings: {
-    fontSize: 12,
-    color: '#999',
+  stars: {
+    marginBottom: 2,
+  },
+  score: {
+    fontSize: 32,
+    fontFamily: 'PT Sans Bold',
+    color: '#FF891B'
+  },
+  ratingCount: {
+    fontSize: 10,
+    fontFamily: 'PT Sans',
+    color: '#666',
   },
 });
 
